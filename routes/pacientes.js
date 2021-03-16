@@ -3,9 +3,30 @@ const router = express.Router();
 
 const Paciente = require('../models/Paciente'); 
 
-router.get('/',(req,res) =>{
-    res.send('Estamos en pacientes');
-})
+router.get('/',async (req,res) =>{
+    try {
+        const pacientes = await Paciente.find();
+        res.json(pacientes);
+    } catch (error) {
+        console.log(error);
+        res.json({message : error});
+    }
+});
+
+
+/**the parameter is what is afther the las url given by the midelware
+ * http://localhost/pacientes/<parameter>
+ * http://localhost/pacientes/idPaciente
+ * http://localhost:5000/pacientes/6050f16c6290ed1b3cdc1b50
+ */
+router.get('/:pacienteId',async (req,res) =>{
+    try {
+        const post = await Paciente.findById(req.params.pacienteId);
+        res.json(post);
+    } catch (error) {
+        res.json({message : error});
+    }
+});
 
 router.post('/insert',async (req,res) =>{
     console.log(req.body);
@@ -21,6 +42,27 @@ router.post('/insert',async (req,res) =>{
         res.json({message : error});
     }
     
-})
+});
+
+router.delete('/delete/:pacienteId',async (req,res) =>{
+    try {
+        const pacientDeleted = await Paciente.remove({_id:req.params.pacienteId});
+        res.json(pacientDeleted);
+    } catch (error) {
+        res.json({message : error});
+    } 
+});
+
+router.patch('/update/:pacienteId',async (req,res) =>{
+    try {
+        const pacientUpdated = await Paciente.updateOne(
+            {_id:req.params.pacienteId},
+            {$set: {edad: req.body.edad}}
+        );
+        res.json(pacientUpdated);
+    } catch (error) {
+        res.json({message : error});
+    }
+});
 
 module.exports = router;
