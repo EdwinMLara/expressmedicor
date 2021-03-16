@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require('mongoose');
 require('dotenv/config');
 
+const cors = require('cors');
+
 /**
 this is deprecated and converts in the next one
 const bodyParser  = require('body-parser');
@@ -10,7 +12,7 @@ const bodyParser  = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 */
-
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
