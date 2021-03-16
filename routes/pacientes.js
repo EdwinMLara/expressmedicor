@@ -7,22 +7,20 @@ router.get('/',(req,res) =>{
     res.send('Estamos en pacientes');
 })
 
-router.post('/insert',(req,res) =>{
+router.post('/insert',async (req,res) =>{
     console.log(req.body);
     const paciente = new Paciente({
         nombre : req.body.nombre,
         edad : req.body.edad
     });
 
-    paciente.save()
-    .then(data => {
-        console.log(data);
-        res.json(data);
-    })
-    .catch(err =>{
-        console.log(err);
-        res.json({mensaje : err});
-    });
+    try {
+        const pacientSaved = await paciente.save();
+        res.json(pacientSaved);
+    } catch (error) {
+        res.json({message : error});
+    }
+    
 })
 
 module.exports = router;
