@@ -16,9 +16,11 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const postRoute = require('./routes/pacientes');
+const pacientesRoute = require('./routes/pacientes');
+const consultasRoute = require('./routes/consultas');
 
-app.use('/pacientes',postRoute);
+app.use('/pacientes',pacientesRoute);
+app.use('/consultas',consultasRoute);
 
 app.get('/',(req,res) =>{
     res.send('Hola Mundo!');
@@ -31,6 +33,6 @@ mongoose.connect(
 );
 
 const PORT = process.env.PORT || 5000;
-app.listen(5000,()=>{
+app.listen(PORT,()=>{
     console.log(`El servidor se inicio en ${PORT}`);
 });
