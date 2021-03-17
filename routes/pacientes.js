@@ -46,7 +46,8 @@ router.post('/insert',async (req,res) =>{
 
 router.delete('/delete/:pacienteId',async (req,res) =>{
     try {
-        const pacientDeleted = await Paciente.remove({_id:req.params.pacienteId});
+        const pacientDeleted = await Paciente.remove(
+            {_id:req.params.pacienteId});
         res.json(pacientDeleted);
     } catch (error) {
         res.json({message : error});

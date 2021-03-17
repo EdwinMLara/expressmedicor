@@ -3,6 +3,15 @@ const router = express.Router();
 
 const Consulta = require('../models/Consulta');
 
+router.get('/',async (req,res) =>{
+    try {
+        const consultas = await Consulta.find();
+        res.json(consultas);
+    } catch (error) {
+        res.json({message:error})
+    }
+})
+
 router.get('/readByPacient/:pacienteId',async (req,res) =>{
     try {
         const consultas = await Consulta.find({
@@ -27,6 +36,32 @@ router.post('/insert/:pacienteId',async (req,res) =>{
         console.log("insertado consulta");
     } catch (error) {
         res.json({message : error});
+    }
+});
+
+router.patch('/update/:consultaId',async (req,res)=>{
+    try {
+        const updatedConsult = await Consulta.updateOne(
+            {_id:req.params.consultaId},
+            {$set :{
+                sintomas : req.body.sintomas,
+                diagnostico: req.body.diagnostico
+            }}
+        );
+        res.json(updatedConsult);
+    } catch (error) {
+        res.json({message : error});
+    }
+});
+
+
+router.delete('/delete/:consultaId',async (req,res) =>{
+    try {
+        const deletedConsult = await Consulta.remove(
+            {_id:req.params.consultaId});
+        res.json(deletedConsult);
+    } catch (error) {
+        res.json({message:error});
     }
 });
 
