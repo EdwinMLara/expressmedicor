@@ -16,9 +16,12 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const loginRouter = require('./routes/rLogin');
 const pacientesRoute = require('./routes/pacientes');
 const consultasRoute = require('./routes/consultas');
 
+
+app.use('/login',loginRouter);
 app.use('/pacientes',pacientesRoute);
 app.use('/consultas',consultasRoute);
 
