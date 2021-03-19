@@ -17,7 +17,7 @@ router.post('/',async (req,res) =>{
                             console.log(err);
                         })
             if(match){
-                jwt.sign({username:req.body.username,password:req.body.password},process.env.SECRET_KEY,{expiresIn: '1h'},(err,token) =>{
+                jwt.sign({username:req.body.username,password:usuario.password},process.env.SECRET_KEY,{expiresIn: '1h'},(err,token) =>{
                     if(err !== null){
                         res.json({
                             status:1001,
