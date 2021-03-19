@@ -1,22 +1,49 @@
 const express = require('express');
 const router = express.Router();
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 require('dotenv/config');
 
-const Login = require('../models/Login');
+const Usuarios = require('../models/Usuario');
 
 router.post('/',async (req,res) =>{
-    const userTest = {
-        username : 'EdwinMLara',
-        password : 'admin'
+    try {
+        const usuario = await Usuarios.findOne({
+            username: req.body.username
+        }); 
+        if(usuario !== null){
+            let match = await bcrypt.compare(req.body.password,usuario.password)
+                        .then(result => result).catch(err =>{
+                            console.log(err);
+                        })
+            if(match){
+                jwt.sign({username:req.body.username,password:req.body.password},process.env.SECRET_KEY,{expiresIn: '1h'},(err,token) =>{
+                    if(err !== null){
+                        res.json({
+                            status:1001,
+                            message:"error al genera el token"
+                        });
+                    }else{        
+                        res.json({token});
+                    }
+                });
+            }else{
+                res.json({
+                    status:500,
+                    message:"contraseña invalida"
+                });
+            }
+        }else{
+            res.json({
+                status:400,
+                message:"usuario invalido"
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.json({message:error});
     }
 
-    let token = jwt.sign(
-        userTest,process.env.SECRET_KEY,{expiresIn: '1h'},(err,token) =>{
-            res.json({token});
-        });
-    
-    console.log("afuera",token);
 });
 
 router.post('/verificar',verificarToken,(req,res)=>{
