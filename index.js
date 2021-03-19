@@ -17,16 +17,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const loginRouter = require('./routes/rLogin');
+const userRouter = require('./routes/rUsuarios');
 const pacientesRoute = require('./routes/pacientes');
 const consultasRoute = require('./routes/consultas');
 
 
 app.use('/login',loginRouter);
+app.use('/usuarios/',userRouter);
 app.use('/pacientes',pacientesRoute);
 app.use('/consultas',consultasRoute);
 
 app.get('/',(req,res) =>{
-    res.send('Hola Mundo!');
+    res.send('Rest Service for Medico');
 });
 
 mongoose.connect(
