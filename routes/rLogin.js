@@ -24,7 +24,7 @@ router.post('/',async (req,res) =>{
                             message:"error al genera el token"
                         });
                     }else{        
-                        res.json({token});
+                        res.json({status:200,token});
                     }
                 });
             }else{
