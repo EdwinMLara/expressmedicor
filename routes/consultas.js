@@ -24,9 +24,9 @@ router.get('/readByPacient/:pacienteId',async (req,res) =>{
     }
 });
 
-router.post('/insert/:pacienteId',async (req,res) =>{
+router.post('/insert',async (req,res) =>{
     const consulta = new Consulta({
-        idPaciente : req.params.pacienteId,
+        idPaciente : req.body.idPaciente,
         sintomas : req.body.sintomas,
         diagnostico: req.body.diagnostico
     });
