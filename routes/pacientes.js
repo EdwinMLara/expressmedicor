@@ -32,7 +32,12 @@ router.post('/insert',async (req,res) =>{
     console.log(req.body);
     const paciente = new Paciente({
         nombre : req.body.nombre,
-        edad : req.body.edad
+        edad : req.body.edad,
+        talla : req.body.talla,
+        peso : req.body.peso,
+        enfermedadesCronicas: req.body.enfermedadesCronicas,
+        alergias : req.body.alergias,
+        imageb64 : req.body.imageb64
     });
 
     try {

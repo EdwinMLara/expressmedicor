@@ -1,15 +1,34 @@
 const mongoose = require('mongoose');
 
 const PacienteSchema = mongoose.Schema({
-    nombre : {
+    nombre:{
         type:String,
         require:true
     },
-    edad : {
+    edad:{
         type:Number,
         require:true
     },
-    date :{
+    talla:{
+        type:String,
+        require:true
+    },
+    peso:{
+        type: Number,
+        require:true
+    },
+    enfermedadesCronicas:{
+        type: String,
+        require:true
+    },
+    alergias:{
+
+    },
+    imageb64:{
+        type:String,
+        require:true
+    },
+    date:{
         type:Date,
         default: Date.now
     }
