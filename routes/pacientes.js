@@ -41,7 +41,7 @@ router.post('/insert',async (req,res) =>{
     });
 
     try {
-        const pacientSaved = await paciente.save();
+        const pacientSaved = await paciente.save(); 
         res.json(pacientSaved);
     } catch (error) {
         res.json({message : error});

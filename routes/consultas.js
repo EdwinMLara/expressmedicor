@@ -28,7 +28,8 @@ router.post('/insert',async (req,res) =>{
     const consulta = new Consulta({
         idPaciente : req.body.idPaciente,
         sintomas : req.body.sintomas,
-        diagnostico: req.body.diagnostico
+        diagnostico: req.body.diagnostico,
+        receta: req.body.receta
     });
     try {
         const savedConsult = await consulta.save();

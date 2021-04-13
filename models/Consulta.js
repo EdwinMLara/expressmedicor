@@ -13,6 +13,14 @@ const ConsultaSchema = mongoose.Schema({
         type:String,
         require:true
     },
+    receta : {
+        type: Array,
+        items:{
+            cantidad : Number,
+            nombre : String,
+            prescripcion : String
+        }
+    },
     date:{
         type: Date,
         default: Date.now

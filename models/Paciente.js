@@ -22,7 +22,8 @@ const PacienteSchema = mongoose.Schema({
         require:true
     },
     alergias:{
-
+        type: String,
+        require:true
     },
     imageb64:{
         type:String,
