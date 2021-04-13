@@ -8,11 +8,21 @@ router.get('/',async (req,res) =>{
         const pacientes = await Paciente.find();
         res.json(pacientes);
     } catch (error) {
-        console.log(error);
         res.json({message : error});
     }
 });
 
+
+
+router.get("/getByName/:nombre",async (req,res) =>{
+    console.log(req.params.nombre);
+    try{
+        const pacientes = await Paciente.find({"nombre": {'$regex':req.params.nombre ,'$options' : 'i'}});
+        res.json(pacientes);
+    }catch(error){
+        res.json({message : error});
+    }
+})
 
 /**the parameter is what is afther the las url given by the midelware
  * http://localhost/pacientes/<parameter>
@@ -21,15 +31,14 @@ router.get('/',async (req,res) =>{
  */
 router.get('/:pacienteId',async (req,res) =>{
     try {
-        const post = await Paciente.findById(req.params.pacienteId);
-        res.json(post);
+        const pacientes = await Paciente.findById(req.params.pacienteId);
+        res.json(pacientes);
     } catch (error) {
         res.json({message : error});
     }
 });
 
 router.post('/insert',async (req,res) =>{
-    console.log(req.body);
     const paciente = new Paciente({
         nombre : req.body.nombre,
         edad : req.body.edad,
