@@ -5,7 +5,14 @@ const Consulta = require('../models/Consulta');
 
 router.get('/',async (req,res) =>{
     try {
-        const consultas = await Consulta.find();
+        const consultas = await Consulta.aggregate([{
+            $lookup:{
+                from:"pacientes",
+                localField:"idPaciente",
+                foreignField:"_id",
+                as: "paciente" 
+            }
+        }]);
         res.json(consultas);
     } catch (error) {
         res.json({message:error})
