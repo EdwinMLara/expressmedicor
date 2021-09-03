@@ -20,12 +20,14 @@ const loginRouter = require('./routes/rLogin');
 const userRouter = require('./routes/rUsuarios');
 const pacientesRoute = require('./routes/pacientes');
 const consultasRoute = require('./routes/consultas');
+const medicosRoute = require('./routes/rMedicos');
 
 
 app.use('/login',loginRouter);
-app.use('/usuarios/',userRouter);
+app.use('/usuarios',userRouter);
 app.use('/pacientes',pacientesRoute);
 app.use('/consultas',consultasRoute);
+app.use('/medicos',medicosRoute);
 
 app.get('/',(req,res) =>{
     res.send('Rest Service for Medico');
