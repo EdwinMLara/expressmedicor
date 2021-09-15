@@ -13,6 +13,22 @@ const ConsultaSchema = mongoose.Schema({
         type:String,
         require:true
     },
+    temperatura:{
+        type:Number,
+        require:true
+    },
+    tensionArterial:{
+        type:String,
+        require:true
+    },
+    frecuenciaCardiaca:{
+        type:Number,
+        require:true
+    },
+    frecuenciaRespiratoria:{
+        type:Number,
+        require:true
+    },
     receta : {
         type: Array,
         items:{
