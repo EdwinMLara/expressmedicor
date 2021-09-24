@@ -12,7 +12,7 @@ router.get('/',async (req,res) =>{
                 foreignField:"_id",
                 as: "paciente" 
             }
-        }]);
+        },{ $sort: { date: -1 } }]);
         res.json(consultas);
     } catch (error) {
         res.json({message:error})
@@ -36,6 +36,10 @@ router.post('/insert',async (req,res) =>{
         idPaciente : req.body.idPaciente,
         sintomas : req.body.sintomas,
         diagnostico: req.body.diagnostico,
+        temperatura: req.body.temperatura,
+        tensionArterial: req.body.tensionArterial,
+        frecuenciaCardiaca: req.body.frecuenciaCardiaca,
+        frecuenciaRespiratoria: req.body.frecuenciaRespiratoria,
         receta: req.body.receta
     });
     try {
