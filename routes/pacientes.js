@@ -3,9 +3,24 @@ const router = express.Router();
 
 const Paciente = require('../models/Paciente'); 
 
-router.get('/',async (req,res) =>{
+
+router.get('/count',async (req,res) =>{
     try {
-        const pacientes = await Paciente.find();
+        const numpacientes = await Paciente.count()
+        res.json(numpacientes);
+    } catch (error) {
+        res.json({message : error});
+    }
+});
+
+router.get('/:page/pages/:perPage',async (req,res) =>{
+    let page = parseInt(req.params.page);
+    let perPage = parseInt(req.params.perPage);
+    let auxSkip = page*perPage;
+    try {
+        const pacientes = await Paciente.find()
+        .skip(auxSkip)
+        .limit(perPage);
         res.json(pacientes);
     } catch (error) {
         res.json({message : error});
@@ -15,14 +30,13 @@ router.get('/',async (req,res) =>{
 
 
 router.get("/getByName/:nombre",async (req,res) =>{
-    console.log(req.params.nombre);
     try{
         const pacientes = await Paciente.find({"nombre": {'$regex':req.params.nombre ,'$options' : 'i'}});
         res.json(pacientes);
     }catch(error){
         res.json({message : error});
     }
-})
+});
 
 /**the parameter is what is afther the las url given by the midelware
  * http://localhost/pacientes/<parameter>
