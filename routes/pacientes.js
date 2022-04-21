@@ -6,7 +6,7 @@ const Paciente = require('../models/Paciente');
 
 router.get('/count',async (req,res) =>{
     try {
-        const numpacientes = await Paciente.count()
+        const numpacientes = await Paciente.countDocuments()
         res.json(numpacientes);
     } catch (error) {
         res.json({message : error});
